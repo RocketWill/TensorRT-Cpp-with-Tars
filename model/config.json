@@ -1,0 +1,22 @@
+{
+    "wts_file": "/workspace/yolov5/weights/yolov5s.wts",
+    "engine_file": "/workspace/yolov5/weights/yolov5s.engine",
+
+    "kInputTensorName": "data",
+    "kOutputTensorName": "prob",
+    "kNumClass": 80,
+    "kBatchSize": 1,
+    "kInputH": 640,
+    "kInputW": 640,
+    "kMaxNumOutputBbox": 1000,
+    "kNumAnchor": 3,
+    "kIgnoreThresh": 0.1,
+    "kNmsThresh": 0.45,
+    "kConfThresh": 0.5,
+    "kGpuId": 0,
+    "kMaxInputImageSize": 12746752,
+    "gd": 0.33,
+    "gw": 0.5,
+    "is_p6": false,
+    "max_batchsize": 1
+}
