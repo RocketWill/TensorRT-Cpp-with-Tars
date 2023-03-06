@@ -62,8 +62,11 @@ int Yolov5HttpImp::doRequest(const TC_HttpRequest &req, TC_HttpResponse &rsp)
 
         r = jsonify(json_res);
     }
+    catch(const std::exception& ex) {
+        TLOGERROR(__FILE__ << "|" << __LINE__ << "|" << ex.what() << endl);
+    }
     catch(...) {
-
+        TLOGERROR(__FILE__ << "|" << __LINE__ << "|" << "Unknown failure occurred. Possible memory corruption" << endl);
     }
 
     // string msg = "success";
