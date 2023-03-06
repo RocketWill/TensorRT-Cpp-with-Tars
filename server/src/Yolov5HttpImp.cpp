@@ -49,8 +49,13 @@ void Yolov5HttpImp::parseContent(std::string& content, Json::Value& root)
 
 int Yolov5HttpImp::doRequest(const TC_HttpRequest &req, TC_HttpResponse &rsp)
 {
+    Json::Value rsp_msg;
+    rsp_msg["code"] = 200;
+    rsp_msg["msg"] = "ok";
+    rsp_msg["show_msg"] = "完成";
+
     string content = req.getContent();
-    string r = "[]";
+    Json::Value det_res = {};
 
     try {
         Json::Value req_content;
@@ -58,20 +63,28 @@ int Yolov5HttpImp::doRequest(const TC_HttpRequest &req, TC_HttpResponse &rsp)
         string data = req_content["data"].asString();
         vector<cv::Mat> batch_image = {this->img_cvtr->str2mat(data)}; // only one image
         auto dets = infer->do_inference(batch_image);
-        Json::Value json_res = infer->to_dict(dets[0]); // cause batch size is one
-
-        r = jsonify(json_res);
+        det_res = infer->to_dict(dets[0]); // cause batch size is one
+        rsp.setStatus(200);
     }
     catch(const std::exception& ex) {
         TLOGERROR(__FILE__ << "|" << __LINE__ << "|" << ex.what() << endl);
+        rsp.setStatus(500);
+        rsp_msg["code"] = 500;
+        rsp_msg["msg"] = "error";
+        rsp_msg["show_msg"] = "错误";
     }
     catch(...) {
         TLOGERROR(__FILE__ << "|" << __LINE__ << "|" << "Unknown failure occurred. Possible memory corruption" << endl);
+        rsp.setStatus(500);
+        rsp_msg["code"] = 500;
+        rsp_msg["msg"] = "error";
+        rsp_msg["show_msg"] = "错误";
     }
 
-    // string msg = "success";
+    rsp_msg["result"] = det_res;
+    string rsp_msg_str = jsonify(rsp_msg);
     rsp.setContentType("application/json");
-    rsp.setResponse(r.c_str(), r.size());
+    rsp.setResponse(rsp_msg_str.c_str(), rsp_msg_str.size());
 
     return 0;   
 }
