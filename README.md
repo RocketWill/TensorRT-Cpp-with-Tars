@@ -1,4 +1,6 @@
 # An Example of Developing TensorRT C++ Model(Yolov5) Inference Service on Tars
+## 流程
+![项目流程](assets/project-flow.jpg)
 ## 关于 Tars
 ### 1. What is Tars
 是一款腾讯开发的基于名字服务使用 Tars 协议（或 Http 协议）的高性能 RPC 开发框架，配套一体化的运营管理平台，并通过伸缩调度，实现运维半托管服务。可以理解为以 C++ 开发的 Serverless 框架。  
