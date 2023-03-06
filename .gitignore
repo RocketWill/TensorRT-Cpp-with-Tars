@@ -1,7 +1,5 @@
 cmake-build*
 test.*
-*.png
-*.jpg
 .vscode
 build
 */weights
