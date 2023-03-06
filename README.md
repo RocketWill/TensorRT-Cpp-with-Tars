@@ -75,3 +75,8 @@ make
    ![填入EXE路径](assets/server-add-exe.png)
 
 ## 客户端测试
+### 1. 同步模式
+在 [client](client) 目录下提供了三种语言的客户端调用方式，请参考对应说明文档
+- [Python](client/python/README.md)
+- [JavaScript](client/javascript/README.md)
+- [C++](client/cpp/README.md)
